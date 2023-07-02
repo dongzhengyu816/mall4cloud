@@ -11,7 +11,7 @@ import com.mall4j.cloud.common.exception.Mall4cloudException;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +34,7 @@ public class AttachFileController {
     private AttachFileService attachFileService;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    private MapperFactory mapperFactory;
 
     @GetMapping("/page")
     @Operation(summary = "获取上传文件记录表列表" , description = "分页获取上传文件记录表列表")
@@ -49,7 +49,7 @@ public class AttachFileController {
     @PostMapping
     @Operation(summary = "保存上传文件记录" , description = "保存上传文件记录")
     public ServerResponseEntity<Void> save(@RequestBody List<AttachFileDTO> attachFileDtos) {
-        List<AttachFile> attachFiles = mapperFacade.mapAsList(attachFileDtos, AttachFile.class);
+        List<AttachFile> attachFiles = mapperFactory.getMapperFacade().mapAsList(attachFileDtos, AttachFile.class);
         attachFileService.save(attachFiles);
         return ServerResponseEntity.success();
     }
@@ -64,7 +64,7 @@ public class AttachFileController {
             // 图片名称不能为空
             throw new Mall4cloudException("图片名称不能为空");
         }
-        AttachFile attachFile = mapperFacade.map(attachFileDto, AttachFile.class);
+        AttachFile attachFile = mapperFactory.getMapperFacade().map(attachFileDto, AttachFile.class);
         return ServerResponseEntity.success(attachFileService.updateFileName(attachFile));
     }
 

@@ -12,7 +12,7 @@ import com.mall4j.cloud.common.response.ServerResponseEntity;
 import com.mall4j.cloud.common.security.AuthUserContext;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -34,7 +34,7 @@ public class RoleController {
     private RoleService roleService;
 
     @Autowired
-	private MapperFacade mapperFacade;
+	private MapperFactory mapperFactory;
 
 	@GetMapping("/page")
 	@Operation(summary = "分页获取角色列表" , description = "分页获取角色列表")
@@ -60,7 +60,7 @@ public class RoleController {
     @PostMapping
     @Operation(summary = "保存角色" , description = "保存角色")
     public ServerResponseEntity<Void> save(@Valid @RequestBody RoleDTO roleDTO) {
-        Role role = mapperFacade.map(roleDTO, Role.class);
+        Role role = mapperFactory.getMapperFacade().map(roleDTO, Role.class);
         UserInfoInTokenBO userInfoInTokenBO = AuthUserContext.get();
         role.setBizType(userInfoInTokenBO.getSysType());
         role.setRoleId(null);
@@ -82,7 +82,7 @@ public class RoleController {
         if (!Objects.equals(dbRole.getBizType(), userInfoInTokenBO.getSysType()) || !Objects.equals(dbRole.getTenantId(), userInfoInTokenBO.getTenantId())) {
             return ServerResponseEntity.fail(ResponseEnum.UNAUTHORIZED);
         }
-        Role role = mapperFacade.map(roleDTO, Role.class);
+        Role role = mapperFactory.getMapperFacade().map(roleDTO, Role.class);
         role.setBizType(userInfoInTokenBO.getSysType());
 
         roleService.update(role, roleDTO.getMenuIds(), roleDTO.getMenuPermissionIds());

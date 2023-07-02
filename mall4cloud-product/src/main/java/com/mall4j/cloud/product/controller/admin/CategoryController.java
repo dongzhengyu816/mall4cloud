@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,7 +40,7 @@ public class CategoryController {
     private CategoryAndSpuService categoryAndSpuService;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    private MapperFactory mapperFactory;
 
     @GetMapping
     @Operation(summary = "获取分类信息" , description = "根据categoryId获取分类信息")
@@ -54,7 +54,7 @@ public class CategoryController {
         if (!Objects.equals(Constant.PLATFORM_SHOP_ID, AuthUserContext.get().getTenantId()) && categoryDTO.getLevel() > CategoryLevel.SECOND.value()) {
             throw new Mall4cloudException("分类等级最高只能为二级分类");
         }
-        Category category = mapperFacade.map(categoryDTO, Category.class);
+        Category category = mapperFactory.getMapperFacade().map(categoryDTO, Category.class);
         categoryService.save(category);
         categoryService.removeCategoryCache(AuthUserContext.get().getTenantId(), category.getParentId());
         return ServerResponseEntity.success();
@@ -63,7 +63,7 @@ public class CategoryController {
     @PutMapping
     @Operation(summary = "更新分类信息" , description = "更新分类信息")
     public ServerResponseEntity<Void> update(@Valid @RequestBody CategoryDTO categoryDTO) {
-        Category category = mapperFacade.map(categoryDTO, Category.class);
+        Category category = mapperFactory.getMapperFacade().map(categoryDTO, Category.class);
         categoryService.update(category);
         categoryService.removeCategoryCache(AuthUserContext.get().getTenantId(), category.getParentId());
         return ServerResponseEntity.success();

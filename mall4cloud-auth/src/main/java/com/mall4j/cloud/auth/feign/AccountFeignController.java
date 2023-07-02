@@ -18,7 +18,8 @@ import com.mall4j.cloud.common.security.bo.AuthAccountInVerifyBO;
 import com.mall4j.cloud.common.security.constant.InputUserNameEnum;
 import com.mall4j.cloud.api.auth.vo.TokenInfoVO;
 import com.mall4j.cloud.common.util.PrincipalUtil;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,7 @@ public class AccountFeignController implements AccountFeignClient {
     private AuthAccountMapper authAccountMapper;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    private MapperFactory mapperFactory;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -84,7 +85,7 @@ public class AccountFeignController implements AccountFeignClient {
         if (Objects.isNull(authAccountDTO.getStatus())) {
             throw new Mall4cloudException(ResponseEnum.EXCEPTION);
         }
-        AuthAccount authAccount = mapperFacade.map(authAccountDTO, AuthAccount.class);
+        AuthAccount authAccount = mapperFactory.getMapperFacade().map(authAccountDTO, AuthAccount.class);
         authAccountMapper.updateAccountInfo(authAccount);
         return ServerResponseEntity.success();
     }
@@ -101,7 +102,7 @@ public class AccountFeignController implements AccountFeignClient {
     public ServerResponseEntity<AuthAccountVO> getByUserIdAndSysType(Long userId,Integer sysType) {
         UserInfoInTokenBO userInfoInTokenBO = AuthUserContext.get();
         AuthAccount authAccount = authAccountMapper.getByUserIdAndType(userId, userInfoInTokenBO.getSysType());
-        return ServerResponseEntity.success(mapperFacade.map(authAccount, AuthAccountVO.class));
+        return ServerResponseEntity.success(mapperFactory.getMapperFacade().map(authAccount, AuthAccountVO.class));
     }
 
     @Override
@@ -126,7 +127,7 @@ public class AccountFeignController implements AccountFeignClient {
             return ServerResponseEntity.showFailMsg("用户名已存在，请更换用户名再次尝试");
         }
 
-        AuthAccount authAccount = mapperFacade.map(authAccountDTO, AuthAccount.class);
+        AuthAccount authAccount = mapperFactory.getMapperFacade().map(authAccountDTO, AuthAccount.class);
 
         if (StrUtil.isNotBlank(authAccount.getPassword())) {
             authAccount.setPassword(passwordEncoder.encode(authAccount.getPassword()));
@@ -141,7 +142,7 @@ public class AccountFeignController implements AccountFeignClient {
         AuthAccount byUserIdAndType = authAccountMapper.getByUserIdAndType(userId, sysType);
         userInfoInTokenBO.setUid(byUserIdAndType.getUid());
         tokenStore.updateUserInfoByUidAndAppId(byUserIdAndType.getUid(), sysType.toString(), userInfoInTokenBO);
-        AuthAccount authAccount = mapperFacade.map(userInfoInTokenBO, AuthAccount.class);
+        AuthAccount authAccount = mapperFactory.getMapperFacade().map(userInfoInTokenBO, AuthAccount.class);
         int res = authAccountMapper.updateUserInfoByUserId(authAccount, userId, sysType);
         if (res != 1) {
             throw new Mall4cloudException("用户信息错误，更新失败");

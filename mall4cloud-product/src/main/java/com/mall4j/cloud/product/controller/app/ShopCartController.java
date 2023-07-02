@@ -20,7 +20,7 @@ import com.mall4j.cloud.common.order.vo.ShopCartItemVO;
 import com.mall4j.cloud.product.vo.ShopCartAmountVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +44,7 @@ public class ShopCartController {
     private ShopCartService shopCartService;
 
     @Autowired
-	private MapperFacade mapperFacade;
+	private MapperFactory mapperFactory;
 
     @Autowired
     private SpuService spuService;
@@ -92,7 +92,7 @@ public class ShopCartController {
         ShopCartWithAmountVO shopCartWithAmountVO = new ShopCartWithAmountVO();
         shopCartWithAmountVO.setShopCarts(shopCarts);
 
-        return ServerResponseEntity.success(mapperFacade.map(shopCartWithAmountVO, ShopCartAmountVO.class));
+        return ServerResponseEntity.success(mapperFactory.getMapperFacade().map(shopCartWithAmountVO, ShopCartAmountVO.class));
     }
 
 

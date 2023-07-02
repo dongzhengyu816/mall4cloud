@@ -13,7 +13,7 @@ import com.mall4j.cloud.multishop.model.ShopDetail;
 import com.mall4j.cloud.multishop.service.ShopDetailService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +34,7 @@ public class ShopDetailController {
     private ShopDetailService shopDetailService;
 
     @Autowired
-    private MapperFacade mapperFacade;
+    private MapperFactory mapperFactory;
 
     @GetMapping("/page")
     @Operation(summary = "分页查询" , description = "分页查询")
@@ -65,7 +65,7 @@ public class ShopDetailController {
     @PutMapping("/update_shop")
     @Operation(summary = "更新店铺" , description = "更新店铺")
     public ServerResponseEntity<Void> updateShop(@RequestBody ShopDetailDTO shopDetailDTO) {
-        shopDetailService.update(mapperFacade.map(shopDetailDTO, ShopDetail.class));
+        shopDetailService.update(mapperFactory.getMapperFacade().map(shopDetailDTO, ShopDetail.class));
         return ServerResponseEntity.success();
     }
 }

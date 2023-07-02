@@ -1,6 +1,6 @@
 package com.mall4j.cloud.common.config;
 
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.context.annotation.Bean;
@@ -20,9 +20,9 @@ public class OrikaConfig {
 		return new DefaultMapperFactory.Builder().build();
 	}
 
-	@Bean
-	public MapperFacade mapperFacade() {
-		return mapperFactory().getMapperFacade();
-	}
+//	@Bean
+//	public MapperFacade mapperFacade() {
+//		return mapperFactory().getMapperFacade();
+//	}
 
 }

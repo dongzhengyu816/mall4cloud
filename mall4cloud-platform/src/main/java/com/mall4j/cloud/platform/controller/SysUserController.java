@@ -12,7 +12,7 @@ import com.mall4j.cloud.platform.vo.SysUserVO;
 import com.mall4j.cloud.platform.vo.SysUserSimpleVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +31,7 @@ public class SysUserController {
 	private SysUserService sysUserService;
 
 	@Autowired
-	private MapperFacade mapperFacade;
+	private MapperFactory mapperFactory;
 
 	@GetMapping("/info")
 	@Operation(summary = "登陆平台用户信息" , description = "获取当前登陆平台用户的用户信息")
@@ -59,7 +59,7 @@ public class SysUserController {
 	@PostMapping
 	@Operation(summary = "保存平台用户信息" , description = "保存平台用户信息")
 	public ServerResponseEntity<Void> save(@Valid @RequestBody SysUserDTO sysUserDTO) {
-		SysUser sysUser = mapperFacade.map(sysUserDTO, SysUser.class);
+		SysUser sysUser = mapperFactory.getMapperFacade().map(sysUserDTO, SysUser.class);
 		sysUser.setSysUserId(null);
 		sysUser.setHasAccount(0);
 		sysUserService.save(sysUser,sysUserDTO.getRoleIds());
@@ -69,7 +69,7 @@ public class SysUserController {
 	@PutMapping
 	@Operation(summary = "更新平台用户信息" , description = "更新平台用户信息")
 	public ServerResponseEntity<Void> update(@Valid @RequestBody SysUserDTO sysUserDTO) {
-		SysUser sysUser = mapperFacade.map(sysUserDTO, SysUser.class);
+		SysUser sysUser = mapperFactory.getMapperFacade().map(sysUserDTO, SysUser.class);
 		sysUserService.update(sysUser,sysUserDTO.getRoleIds());
 		return ServerResponseEntity.success();
 	}

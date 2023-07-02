@@ -22,7 +22,7 @@ import com.mall4j.cloud.order.vo.OrderShopVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +43,7 @@ public class MyOrderController {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private MapperFacade mapperFacade;
+    private MapperFactory mapperFactory;
     @Autowired
     private OrderItemService orderItemService;
     @Autowired
@@ -69,7 +69,7 @@ public class MyOrderController {
         orderShopDto.setShopName(order.getShopName());
         orderShopDto.setCreateTime(order.getCreateTime());
         orderShopDto.setStatus(order.getStatus());
-        orderShopDto.setOrderAddr(mapperFacade.map(orderAddr, OrderAddrVO.class));
+        orderShopDto.setOrderAddr(mapperFactory.getMapperFacade().map(orderAddr, OrderAddrVO.class));
         // 付款时间
         orderShopDto.setPayTime(order.getPayTime());
         // 发货时间
@@ -80,7 +80,7 @@ public class MyOrderController {
         orderShopDto.setCancelTime(order.getCancelTime());
         // 更新时间
         orderShopDto.setUpdateTime(order.getUpdateTime());
-        orderShopDto.setOrderItems(mapperFacade.mapAsList(orderItems, OrderItemVO.class));
+        orderShopDto.setOrderItems(mapperFactory.getMapperFacade().mapAsList(orderItems, OrderItemVO.class));
         orderShopDto.setTotal(order.getTotal());
         orderShopDto.setTotalNum(order.getAllCount());
 

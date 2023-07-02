@@ -6,7 +6,8 @@ import com.mall4j.cloud.auth.manager.TokenStore;
 import com.mall4j.cloud.api.auth.vo.TokenInfoVO;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,7 +27,7 @@ public class TokenController {
 	private TokenStore tokenStore;
 
 	@Autowired
-	private MapperFacade mapperFacade;
+	private MapperFactory mapperFactory;
 
 	@PostMapping("/ua/token/refresh")
 	public ServerResponseEntity<TokenInfoVO> refreshToken(@Valid @RequestBody RefreshTokenDTO refreshTokenDTO) {
@@ -36,7 +37,7 @@ public class TokenController {
 			return ServerResponseEntity.transform(tokenInfoServerResponseEntity);
 		}
 		return ServerResponseEntity
-				.success(mapperFacade.map(tokenInfoServerResponseEntity.getData(), TokenInfoVO.class));
+				.success(mapperFactory.getMapperFacade().map(tokenInfoServerResponseEntity.getData(), TokenInfoVO.class));
 	}
 
 }

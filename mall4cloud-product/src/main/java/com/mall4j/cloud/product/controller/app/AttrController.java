@@ -5,7 +5,7 @@ import com.mall4j.cloud.api.product.vo.AttrVO;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +24,7 @@ public class AttrController {
     private AttrService attrService;
 
     @Autowired
-	private MapperFacade mapperFacade;
+	private MapperFactory mapperFactory;
 
 	@GetMapping
 	@Operation(summary = "获取属性信息" , description = "根据attrId获取属性信息")

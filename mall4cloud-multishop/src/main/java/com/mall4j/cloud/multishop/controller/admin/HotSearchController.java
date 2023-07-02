@@ -11,7 +11,7 @@ import com.mall4j.cloud.common.response.ServerResponseEntity;
 import com.mall4j.cloud.common.security.AuthUserContext;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
@@ -31,7 +31,7 @@ public class HotSearchController {
     private HotSearchService hotSearchService;
 
     @Autowired
-	private MapperFacade mapperFacade;
+	private MapperFactory mapperFactory;
 
 	@GetMapping("/page")
 	@Operation(summary = "分页获取热搜列表" , description = "分页获取热搜列表")
@@ -50,7 +50,7 @@ public class HotSearchController {
     @PostMapping
     @Operation(summary = "保存热搜" , description = "保存热搜")
     public ServerResponseEntity<Void> save(@Valid @RequestBody HotSearchDTO hotSearchDTO) {
-        HotSearch hotSearch = mapperFacade.map(hotSearchDTO, HotSearch.class);
+        HotSearch hotSearch = mapperFactory.getMapperFacade().map(hotSearchDTO, HotSearch.class);
         hotSearch.setShopId(AuthUserContext.get().getTenantId());
         hotSearchService.save(hotSearch);
         hotSearchService.removeHotSearchListCache(hotSearch.getShopId());
@@ -60,7 +60,7 @@ public class HotSearchController {
     @PutMapping
     @Operation(summary = "更新热搜" , description = "更新热搜")
     public ServerResponseEntity<Void> update(@Valid @RequestBody HotSearchDTO hotSearchDTO) {
-        HotSearch hotSearch = mapperFacade.map(hotSearchDTO, HotSearch.class);
+        HotSearch hotSearch = mapperFactory.getMapperFacade().map(hotSearchDTO, HotSearch.class);
         hotSearch.setShopId(AuthUserContext.get().getTenantId());
         hotSearchService.update(hotSearch);
         hotSearchService.removeHotSearchListCache(hotSearch.getShopId());
