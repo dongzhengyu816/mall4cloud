@@ -1,5 +1,6 @@
 package com.mall4j.cloud.auth.service.impl;
 
+
 import cn.hutool.core.util.StrUtil;
 import com.mall4j.cloud.auth.constant.AuthAccountStatusEnum;
 import com.mall4j.cloud.auth.model.AuthAccount;
@@ -10,7 +11,6 @@ import com.mall4j.cloud.auth.mapper.AuthAccountMapper;
 import com.mall4j.cloud.auth.service.AuthAccountService;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import com.mall4j.cloud.common.util.PrincipalUtil;
-import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.MapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,8 +32,6 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	//@Autowired
-	//private MapperFactory mapperFactory;
 
 	@Autowired
 	private MapperFactory mapperFactory;
@@ -85,8 +83,10 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 			return ServerResponseEntity.showFailMsg("用户名或密码不正确");
 		}
 
-		return ServerResponseEntity.success(mapperFactory.getMapperFacade().map(authAccountInVerifyBO, UserInfoInTokenBO.class));
+		return ServerResponseEntity.success((UserInfoInTokenBO) authAccountInVerifyBO);
 	}
+
+
 
     @Override
     public AuthAccount getByUserIdAndType(Long userId, Integer sysType) {

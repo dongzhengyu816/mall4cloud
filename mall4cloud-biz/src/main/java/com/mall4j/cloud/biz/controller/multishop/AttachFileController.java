@@ -1,6 +1,7 @@
 package com.mall4j.cloud.biz.controller.multishop;
 
 
+import cn.dhbin.mapstruct.helper.core.BeanConvertMappers;
 import com.mall4j.cloud.biz.dto.AttachFileDTO;
 import com.mall4j.cloud.biz.model.AttachFile;
 import com.mall4j.cloud.biz.service.AttachFileService;
@@ -49,6 +50,7 @@ public class AttachFileController {
     @PostMapping
     @Operation(summary = "保存上传文件记录" , description = "保存上传文件记录")
     public ServerResponseEntity<Void> save(@RequestBody List<AttachFileDTO> attachFileDtos) {
+        //AttachFile attachFile = BeanConvertMappers.convert(attachFileDtos, AttachFile.class);
         List<AttachFile> attachFiles = mapperFactory.getMapperFacade().mapAsList(attachFileDtos, AttachFile.class);
         attachFileService.save(attachFiles);
         return ServerResponseEntity.success();

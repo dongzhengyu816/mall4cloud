@@ -11,6 +11,8 @@ import com.mall4j.cloud.common.security.AuthUserContext;
 import com.mall4j.cloud.api.auth.vo.TokenInfoVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +28,7 @@ import javax.validation.Valid;
 @RestController
 @Tag(name = "登录")
 public class LoginController {
+	private static final Logger log = LoggerFactory.getLogger(LoginController.class);
 
 	@Autowired
 	private TokenStore tokenStore;
@@ -56,6 +59,7 @@ public class LoginController {
 		}
 
 		UserInfoInTokenBO data = userInfoInTokenResponse.getData();
+		log.info("UserInfoInTokenBO:{}",data);
 
 		ClearUserPermissionsCacheDTO clearUserPermissionsCacheDTO = new ClearUserPermissionsCacheDTO();
 		clearUserPermissionsCacheDTO.setSysType(data.getSysType());

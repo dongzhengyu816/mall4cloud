@@ -17,7 +17,10 @@ import com.mall4j.cloud.order.vo.OrderAddrVO;
 import com.mall4j.cloud.order.vo.OrderVO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.extern.slf4j.Slf4j;
 import ma.glasnost.orika.MapperFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +35,9 @@ import java.util.Objects;
 @Controller
 @RequestMapping("/m/order")
 @Tag(name = "multishop-订单接口")
+
 public class OrderController {
+    private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private OrderService orderService;
@@ -52,6 +57,7 @@ public class OrderController {
     @Operation(summary = "分页获取订单详情")
     public ServerResponseEntity<EsPageVO<EsOrderVO>> page(OrderSearchDTO orderSearchDTO) {
         Long shopId = AuthUserContext.get().getTenantId();
+        log.info("shopId:{}",shopId);
         orderSearchDTO.setShopId(shopId);
         return searchOrderFeignClient.getOrderPage(orderSearchDTO);
     }

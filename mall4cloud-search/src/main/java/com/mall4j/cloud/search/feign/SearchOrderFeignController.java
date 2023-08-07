@@ -8,6 +8,8 @@ import com.mall4j.cloud.api.vo.search.EsOrderVO;
 import com.mall4j.cloud.common.dto.OrderSearchDTO;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import com.mall4j.cloud.search.manager.OrderSearchManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,13 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class SearchOrderFeignController implements SearchOrderFeignClient {
-
+    private static final Logger log = LoggerFactory.getLogger(SearchOrderFeignController.class);
     @Autowired
     private OrderSearchManager orderSearchManager;
 
-
     @Override
     public ServerResponseEntity<EsPageVO<EsOrderVO>> getOrderPage(OrderSearchDTO orderSearch) {
+        log.info("orderSearch:{}",orderSearch);
         EsPageDTO pageDTO = new EsPageDTO();
         pageDTO.setPageNum(orderSearch.getPageNum());
         pageDTO.setPageSize(orderSearch.getPageSize());
