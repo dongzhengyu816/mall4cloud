@@ -39,8 +39,6 @@ public class LoginController {
 	@Autowired
 	private PermissionFeignClient permissionFeignClient;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@PostMapping("/ua/login")
 	@Operation(summary = "账号密码" , description = "通过账号登录，还要携带用户的类型，也就是用户所在的系统")

@@ -72,6 +72,10 @@
             <artifactId>mall4cloud-api-platform</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

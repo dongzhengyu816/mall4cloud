@@ -1,5 +1,6 @@
 package com.mall4j.cloud.biz.controller.multishop;
 
+import com.mall4j.cloud.biz.convert.AttachFileGroupConvert;
 import com.mall4j.cloud.biz.dto.AttachFileGroupDTO;
 import com.mall4j.cloud.biz.model.AttachFileGroup;
 import com.mall4j.cloud.biz.service.AttachFileGroupService;
@@ -45,7 +46,7 @@ public class AttachFileGroupController {
     @PostMapping
     @Operation(summary = "保存" , description = "保存")
     public ServerResponseEntity<Void> save(@Valid @RequestBody AttachFileGroupDTO attachFileGroupDTO) {
-        AttachFileGroup attachFileGroup = mapperFactory.getMapperFacade().map(attachFileGroupDTO, AttachFileGroup.class);
+        AttachFileGroup attachFileGroup = AttachFileGroupConvert.INSTANCE.toAttachFileGroup(attachFileGroupDTO);
         attachFileGroup.setAttachFileGroupId(null);
         attachFileGroupService.save(attachFileGroup);
         return ServerResponseEntity.success();
@@ -54,7 +55,7 @@ public class AttachFileGroupController {
     @PutMapping
     @Operation(summary = "更新" , description = "更新")
     public ServerResponseEntity<Void> update(@Valid @RequestBody AttachFileGroupDTO attachFileGroupDTO) {
-        AttachFileGroup attachFileGroup = mapperFactory.getMapperFacade().map(attachFileGroupDTO, AttachFileGroup.class);
+        AttachFileGroup attachFileGroup = AttachFileGroupConvert.INSTANCE.toAttachFileGroup(attachFileGroupDTO);
         attachFileGroupService.update(attachFileGroup);
         return ServerResponseEntity.success();
     }

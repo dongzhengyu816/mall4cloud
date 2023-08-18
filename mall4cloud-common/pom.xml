@@ -21,5 +21,11 @@
         <module>mall4cloud-common-order</module>
         <module>mall4cloud-common-rocketmq</module>
     </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>cn.dhbin</groupId>
+            <artifactId>mapstruct-helper-core</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>

@@ -5,6 +5,7 @@ import com.anji.captcha.model.vo.CaptchaVO;
 import com.anji.captcha.service.CaptchaService;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class CaptchaController {
 
 	private final CaptchaService captchaService;
 
+	@Autowired
 	public CaptchaController(CaptchaService captchaService) {
 		this.captchaService = captchaService;
 	}

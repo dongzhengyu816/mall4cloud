@@ -69,8 +69,7 @@ public class AuthAccountServiceImpl implements AuthAccountService {
 		if (authAccountInVerifyBO == null) {
 			prepareTimingAttackProtection();
 			// 再次进行运算，防止计时攻击
-			// 计时攻击（Timing
-			// attack），通过设备运算的用时来推断出所使用的运算操作，或者通过对比运算的时间推定数据位于哪个存储设备，或者利用通信的时间差进行数据窃取。
+			// 计时攻击（Timing attack），通过设备运算的用时来推断出所使用的运算操作，或者通过对比运算的时间推定数据位于哪个存储设备，或者利用通信的时间差进行数据窃取。
 			mitigateAgainstTimingAttack(password);
 			return ServerResponseEntity.showFailMsg("用户名或密码不正确");
 		}

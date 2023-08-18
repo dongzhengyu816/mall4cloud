@@ -62,6 +62,7 @@ public class PermissionFeignController implements PermissionFeignClient {
 	@Override
 	public ServerResponseEntity<Void> clearUserPermissionsCache(ClearUserPermissionsCacheDTO clearUserPermissionsCacheDTO) {
 		menuPermissionService.clearUserPermissionsCache(clearUserPermissionsCacheDTO.getUserId(), clearUserPermissionsCacheDTO.getSysType());
+		logger.debug("远程调用成功：{}","clearUserPermissionsCache");
 		return ServerResponseEntity.success();
 	}
 

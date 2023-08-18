@@ -1,7 +1,6 @@
 package com.mall4j.cloud.biz.controller.multishop;
 
-
-import cn.dhbin.mapstruct.helper.core.BeanConvertMappers;
+import com.mall4j.cloud.biz.convert.AttachFileConvert;
 import com.mall4j.cloud.biz.dto.AttachFileDTO;
 import com.mall4j.cloud.biz.model.AttachFile;
 import com.mall4j.cloud.biz.service.AttachFileService;
@@ -38,7 +37,7 @@ public class AttachFileController {
     private MapperFactory mapperFactory;
 
     @GetMapping("/page")
-    @Operation(summary = "获取上传文件记录表列表" , description = "分页获取上传文件记录表列表")
+    @Operation(summary = "获取上传文件记录表列表", description = "分页获取上传文件记录表列表")
     public ServerResponseEntity<PageVO<AttachFileVO>> page(@Valid PageDTO pageDTO, String fileName, Long fileGroupId) {
         if (fileGroupId == 0) {
             fileGroupId = null;
@@ -48,10 +47,9 @@ public class AttachFileController {
     }
 
     @PostMapping
-    @Operation(summary = "保存上传文件记录" , description = "保存上传文件记录")
+    @Operation(summary = "保存上传文件记录", description = "保存上传文件记录")
     public ServerResponseEntity<Void> save(@RequestBody List<AttachFileDTO> attachFileDtos) {
-        //AttachFile attachFile = BeanConvertMappers.convert(attachFileDtos, AttachFile.class);
-        List<AttachFile> attachFiles = mapperFactory.getMapperFacade().mapAsList(attachFileDtos, AttachFile.class);
+        List<AttachFile> attachFiles = AttachFileConvert.INSTANCE.toAttachFiles(attachFileDtos);
         attachFileService.save(attachFiles);
         return ServerResponseEntity.success();
     }
@@ -60,18 +58,18 @@ public class AttachFileController {
      * 更改文件名或分组
      */
     @PutMapping("/update_file")
-    @Operation(summary = "更新文件记录" , description = "更新文件记录")
+    @Operation(summary = "更新文件记录", description = "更新文件记录")
     public ServerResponseEntity<Boolean> updateFileName(@RequestBody AttachFileDTO attachFileDto) {
         if (Objects.isNull(attachFileDto.getFileName())) {
             // 图片名称不能为空
             throw new Mall4cloudException("图片名称不能为空");
         }
-        AttachFile attachFile = mapperFactory.getMapperFacade().map(attachFileDto, AttachFile.class);
+        AttachFile attachFile = AttachFileConvert.INSTANCE.toAttachFile(attachFileDto);
         return ServerResponseEntity.success(attachFileService.updateFileName(attachFile));
     }
 
     @DeleteMapping
-    @Operation(summary = "删除上传文件记录" , description = "根据上传文件记录表id删除上传文件记录")
+    @Operation(summary = "删除上传文件记录", description = "根据上传文件记录表id删除上传文件记录")
     public ServerResponseEntity<Void> delete(@RequestParam Long fileId) {
         attachFileService.deleteById(fileId);
         return ServerResponseEntity.success();

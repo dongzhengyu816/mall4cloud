@@ -1,6 +1,7 @@
 package com.mall4j.cloud.rbac.controller;
 
 import com.mall4j.cloud.common.response.ResponseEnum;
+import com.mall4j.cloud.rbac.convert.RoleConvert;
 import com.mall4j.cloud.rbac.model.Role;
 import com.mall4j.cloud.rbac.service.RoleService;
 import com.mall4j.cloud.rbac.vo.RoleVO;
@@ -60,7 +61,7 @@ public class RoleController {
     @PostMapping
     @Operation(summary = "保存角色" , description = "保存角色")
     public ServerResponseEntity<Void> save(@Valid @RequestBody RoleDTO roleDTO) {
-        Role role = mapperFactory.getMapperFacade().map(roleDTO, Role.class);
+        Role role = RoleConvert.INSTANCE.toRole(roleDTO);
         UserInfoInTokenBO userInfoInTokenBO = AuthUserContext.get();
         role.setBizType(userInfoInTokenBO.getSysType());
         role.setRoleId(null);
