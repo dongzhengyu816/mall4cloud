@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ApifoxUploaderProjectSetting">
+    <option name="apifoxAccessToken" value="APS-3vrII9Y0t2RRWw7vL7uV1SZ3u8I92PAj" />
+    <option name="apifoxApiOverwriteMode" value="覆盖所有字段" />
+    <option name="apifoxProjectIds">
+      <array>
+        <option value="# ModuleName:ProjectID" />
+        <option value="account:2898533,账户模块" />
+        <option value="business:2898533,资金模块" />
+        <option value="order:2898533,订单模块" />
+        <option value="storage:2898533,存储模块" />
+        <option value="samples-account-service:2898533" />
+        <option value="samples-business-service:2898533" />
+        <option value="samples-storage-service:2898533" />
+        <option value="samples-order-service:2898533" />
+      </array>
+    </option>
+    <option name="yapiTokens" value="" />
+  </component>
+</project>

@@ -286,7 +286,6 @@ public class TokenStore {
 
 	public TokenInfoVO storeAndGetVo(UserInfoInTokenBO userInfoInToken) {
 		TokenInfoBO tokenInfoBO = storeAccessToken(userInfoInToken);
-
 		TokenInfoVO tokenInfoVO = new TokenInfoVO();
 		tokenInfoVO.setAccessToken(tokenInfoBO.getAccessToken());
 		tokenInfoVO.setRefreshToken(tokenInfoBO.getRefreshToken());

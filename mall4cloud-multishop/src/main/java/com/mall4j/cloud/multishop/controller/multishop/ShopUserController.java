@@ -7,6 +7,7 @@ import com.mall4j.cloud.common.database.vo.PageVO;
 import com.mall4j.cloud.common.response.ResponseEnum;
 import com.mall4j.cloud.common.response.ServerResponseEntity;
 import com.mall4j.cloud.common.security.AuthUserContext;
+import com.mall4j.cloud.multishop.convert.ShopUserConvert;
 import com.mall4j.cloud.multishop.dto.ShopUserDTO;
 import com.mall4j.cloud.multishop.model.ShopUser;
 import com.mall4j.cloud.multishop.service.ShopDetailService;
@@ -80,7 +81,7 @@ public class ShopUserController {
 	@PutMapping
 	@Operation(summary = "更新店铺用户信息" , description = "更新店铺用户信息")
 	public ServerResponseEntity<Void> update(@Valid @RequestBody ShopUserDTO shopUserDTO) {
-		ShopUser shopUser = mapperFactory.getMapperFacade().map(shopUserDTO, ShopUser.class);
+		ShopUser shopUser = ShopUserConvert.INSTANCE.toShopUser(shopUserDTO);
 		ShopUserVO dbShopUser = shopUserService.getByUserId(shopUserDTO.getShopUserId());
 		if (!Objects.equals(dbShopUser.getShopId(), AuthUserContext.get().getTenantId())) {
 			return ServerResponseEntity.fail(ResponseEnum.UNAUTHORIZED);

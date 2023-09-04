@@ -60,3 +60,8 @@ gen_code
 
 ### node ###
 node_modules
+!/db/
+!/doc/
+!/es/
+!/front-end/
+!/.idea/

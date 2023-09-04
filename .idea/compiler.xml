@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+      </profile>
+      <profile name="Annotation profile for mall4cloud" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/org/mapstruct/mapstruct-processor/1.3.1.Final/mapstruct-processor-1.3.1.Final.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/com/jolira/hickory/1.0.0/hickory-1.0.0.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/org/mapstruct/mapstruct/1.3.1.Final/mapstruct-1.3.1.Final.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/junit/junit/4.12/junit-4.12.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/org/assertj/assertj-core/3.11.1/assertj-core-3.11.1.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/com/google/guava/guava/19.0/guava-19.0.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/com/puppycrawl/tools/checkstyle/8.14/checkstyle-8.14.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/javax/inject/javax.inject/1/javax.inject-1.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/org/codehaus/plexus/plexus-container-default/1.6/plexus-container-default-1.6.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/org/springframework/spring-test/4.0.3.RELEASE/spring-test-4.0.3.RELEASE.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/org/springframework/spring-beans/4.0.3.RELEASE/spring-beans-4.0.3.RELEASE.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/org/springframework/spring-context/4.0.3.RELEASE/spring-context-4.0.3.RELEASE.jar" />
+          <entry name="$PROJECT_DIR$/../../../apache-maven-3.6.3-bin/apache-maven-3.6.3/repository/joda-time/joda-time/2.9/joda-time-2.9.jar" />
+        </processorPath>
+        <module name="mall4cloud-common-database" />
+        <module name="mall4cloud-leaf" />
+        <module name="mall4cloud-api-platform" />
+        <module name="mall4cloud-api-user" />
+        <module name="mall4cloud-api-product" />
+        <module name="mall4cloud-common-order" />
+        <module name="mall4cloud-platform" />
+        <module name="mall4cloud-gateway" />
+        <module name="mall4cloud-api-order" />
+        <module name="mall4cloud-api-rbac" />
+        <module name="mall4cloud-common-core" />
+        <module name="mall4cloud-user" />
+        <module name="mall4cloud-rbac" />
+        <module name="mall4cloud-product" />
+        <module name="mall4cloud-common-cache" />
+        <module name="mall4cloud-api-search" />
+        <module name="mall4cloud-multishop" />
+        <module name="mall4cloud-api-leaf" />
+        <module name="mall4cloud-api-biz" />
+        <module name="mall4cloud-payment" />
+        <module name="mall4cloud-search" />
+        <module name="mall4cloud-api-multishop" />
+        <module name="mall4cloud-order" />
+        <module name="mall4cloud-biz" />
+        <module name="mall4cloud-auth" />
+        <module name="mall4cloud-api-auth" />
+        <module name="mall4cloud-common-rocketmq" />
+        <module name="mall4cloud-common-security" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>
